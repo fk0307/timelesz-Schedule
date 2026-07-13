@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#e7d9c4">
+<title>timelesz Schedule 管理チェック</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.admin-wrap{max-width:760px;margin:auto;padding:18px 10px 40px}
+.admin-card{background:var(--card);border:1px solid #fff;border-radius:22px;box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.admin-title{margin:0 0 4px;font-size:24px}
+.admin-sub{margin:0;color:var(--muted);font-size:12px}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:14px}
+.stat{background:#f5eee5;border-radius:15px;padding:14px}
+.stat-label{font-size:11px;color:var(--muted)}
+.stat-value{font-size:24px;font-weight:800;margin-top:3px}
+.check-list{display:grid;gap:8px;margin-top:12px}
+.check-item{border:1px solid var(--line);border-radius:14px;padding:11px;font-size:13px;line-height:1.5}
+.ok{color:#47654c}
+.warn{color:#9a5a45}
+.small{font-size:11px;color:var(--muted)}
+.back-link{display:inline-block;margin-top:10px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="admin-wrap">
+  <section class="admin-card">
+    <p class="kicker">OWNER CHECK</p>
+    <h1 class="admin-title">運営チェック</h1>
+    <p class="admin-sub">一般公開ページからはリンクしていない確認用ページです。</p>
+    <div class="stat-grid">
+      <div class="stat"><div class="stat-label">全予定</div><div id="total" class="stat-value">—</div></div>
+      <div class="stat"><div class="stat-label">公開中</div><div id="published" class="stat-value">—</div></div>
+      <div class="stat"><div class="stat-label">重複候補</div><div id="duplicates" class="stat-value">—</div></div>
+      <div class="stat"><div class="stat-label">入力確認</div><div id="warnings" class="stat-value">—</div></div>
+    </div>
+  </section>
+
+  <section class="admin-card">
+    <p class="kicker">DATA CHECK</p>
+    <div id="checks" class="check-list"><div class="check-item">読み込み中…</div></div>
+  </section>
+
+  <section class="admin-card">
+    <p class="kicker">UPDATE FLOW</p>
+    <div class="check-list">
+      <div class="check-item">1. 公式スケジュール全文をChatGPTへ貼る</div>
+      <div class="check-item">2. 差分整理後、予定データを更新する</div>
+      <div class="check-item">3. 公開ページを再読み込みして確認する</div>
+      <div class="check-item">4. YouTubeは各動画URLを登録する</div>
+    </div>
+    <a class="back-link" href="index.html">公開ページへ戻る</a>
+  </section>
+</div>
+<script src="fallback-data.js"></script>
+<script>
+const SHEET_CSV_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vT8yHpEmpNIWvi6FIo1ntB-tG_xjze0EE297G94Hp37vIsCH3QntRiUOo39_B5Ocg/pub?gid=1610754135&single=true&output=csv";
+const validCategories=new Set(["TV","RADIO","MAGAZINE","CONCERT","EVENT","RELEASE","MOVIE","BIRTHDAY","YOUTUBE"]);
+const validMembers=new Set(["timelesz","佐藤勝利","菊池風磨","松島聡","寺西拓人","原嘉孝","橋本将生","猪俣周杜","篠塚大輝"]);
+
+function parseCSV(text){
+  const rows=[]; let row=[], value="", quoted=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(c==='"'){
+      if(quoted && text[i+1]==='"'){value+='"';i++} else quoted=!quoted;
+    }else if(c===','&&!quoted){row.push(value);value=""}
+    else if((c==='\n'||c==='\r')&&!quoted){
+      if(c==='\r'&&text[i+1]==='\n')i++;
+      row.push(value);value="";
+      if(row.some(x=>x!==""))rows.push(row);
+      row=[];
+    }else value+=c;
+  }
+  if(value.length||row.length){row.push(value);rows.push(row)}
+  return rows;
+}
+function normalize(rows){
+  if(!rows.length)return[];
+  const h=rows[0].map(x=>x.trim().toLowerCase());
+  return rows.slice(1).map((r,i)=>{
+    const o={}; h.forEach((k,j)=>o[k]=(r[j]||"").trim());
+    return {
+      row:i+2,id:o.id||"",date:o.date||"",time:o.time||"",
+      category:(o.category||"").toUpperCase(),title:o.title||"",
+      venue:o.venue||"",members:(o.members||"").split(/[、,，]/).map(x=>x.trim()).filter(Boolean),
+      note:o.note||"",url:o.url||"",status:o.status||"公開",addedAt:o.added_at||""
+    };
+  }).filter(x=>x.date||x.title);
+}
+function inspect(list){
+  const checks=[]; const seen=new Map(); let duplicateCount=0; let warningCount=0;
+  list.forEach(e=>{
+    const issues=[];
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(e.date)) issues.push("日付形式");
+    if(!e.title) issues.push("タイトル未入力");
+    if(!validCategories.has(e.category)) issues.push("カテゴリー");
+    if(!e.members.some(m=>validMembers.has(m))) issues.push("対象メンバーなし");
+    if(e.url && !/^https?:\/\//i.test(e.url)) issues.push("URL形式");
+    const k=`${e.date}|${e.time}|${e.title}`;
+    if(seen.has(k)){issues.push(`重複候補（${seen.get(k)}行目）`);duplicateCount++}
+    else seen.set(k,e.row);
+    if(issues.length){
+      warningCount++;
+      checks.push(`<div class="check-item warn">${e.row}行目：${issues.join("・")}<div class="small">${e.date} ${e.title}</div></div>`);
+    }
+  });
+  if(!checks.length)checks.push('<div class="check-item ok">大きな入力エラーは見つかりませんでした。</div>');
+  return {checks,duplicateCount,warningCount};
+}
+async function load(){
+  let list=[];
+  try{
+    const r=await fetch(`${SHEET_CSV_URL}&t=${Date.now()}`,{cache:"no-store"});
+    if(!r.ok)throw new Error();
+    list=normalize(parseCSV(await r.text()));
+  }catch(e){
+    list=(window.FALLBACK_EVENTS||[]).map((x,i)=>({...x,row:i+2}));
+    document.getElementById("checks").innerHTML='<div class="check-item warn">スプレッドシートを読めなかったため、保存済みデータを確認しています。</div>';
+  }
+  const result=inspect(list);
+  document.getElementById("total").textContent=list.length;
+  document.getElementById("published").textContent=list.filter(x=>x.status!=="非公開").length;
+  document.getElementById("duplicates").textContent=result.duplicateCount;
+  document.getElementById("warnings").textContent=result.warningCount;
+  document.getElementById("checks").innerHTML=result.checks.join("");
+}
+load();
+</script>
+</body>
+</html>
