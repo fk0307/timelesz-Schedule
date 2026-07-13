@@ -80,6 +80,23 @@ function parseCSV(text){
   return rows;
 }
 
+function normalizeDate(value){
+  const raw = String(value || "").trim();
+  if(!raw) return "";
+  let m = raw.match(/^(\d{4})[\/.\-](\d{1,2})[\/.\-](\d{1,2})$/);
+  if(m) return `${m[1]}-${String(Number(m[2])).padStart(2,"0")}-${String(Number(m[3])).padStart(2,"0")}`;
+  m = raw.match(/^(\d{4})[\/.\-](\d{1,2})[\/.\-](\d{1,2})\s/);
+  if(m) return `${m[1]}-${String(Number(m[2])).padStart(2,"0")}-${String(Number(m[3])).padStart(2,"0")}`;
+  if(/^\d{5}(\.\d+)?$/.test(raw)){
+    const serial = Number(raw);
+    const utc = new Date(Date.UTC(1899,11,30) + serial * 86400000);
+    return `${utc.getUTCFullYear()}-${String(utc.getUTCMonth()+1).padStart(2,"0")}-${String(utc.getUTCDate()).padStart(2,"0")}`;
+  }
+  const parsed = new Date(raw);
+  if(!Number.isNaN(parsed.getTime())) return `${parsed.getFullYear()}-${String(parsed.getMonth()+1).padStart(2,"0")}-${String(parsed.getDate()).padStart(2,"0")}`;
+  return "";
+}
+
 function normalizeRows(rows){
   if(!rows.length) return [];
   const headers = rows[0].map(h => h.trim().toLowerCase());
@@ -92,7 +109,7 @@ function normalizeRows(rows){
       .filter(v => memberOrder.includes(v));
     return {
       id: obj.id || `row-${index+2}`,
-      date: obj.date || "",
+      date: normalizeDate(obj.date),
       time: obj.time || "",
       category: (obj.category || "").toUpperCase(),
       title: obj.title || "",
@@ -180,7 +197,7 @@ function renderCalendar(){
   });
 
   $("monthLabel").textContent = `${year}.${String(month+1).padStart(2,"0")}`;
-  $("countLabel").textContent = `${monthEvents.length} schedules`;
+  $("countLabel").textContent = `${monthEvents.length}件`;
 
   const firstWeekday = new Date(year, month, 1).getDay();
   const lastDate = new Date(year, month+1, 0).getDate();
@@ -227,7 +244,7 @@ function openDay(date){
             ${e.venue ? `<span>${icon("pin")}${e.venue}</span>` : ""}
             <span>${e.category}</span>
           </div>
-          <div class="event-members">${e.members.map(m => `${memberEmoji[m]} ${m}`).join("　")}</div>
+          <div class="event-members">${e.members.map(m => `${memberEmoji[m]}${m}`).join("　")}</div>
           ${e.note ? `<p class="event-note">${e.note}</p>` : ""}
           ${e.url ? `<a class="link-button" href="${e.url}" target="_blank" rel="noopener">${icon(e.category==="YOUTUBE"?"play":"link")}${e.category==="YOUTUBE"?"動画を見る":"公式ページを見る"}</a>` : ""}
         </div>
@@ -253,9 +270,8 @@ async function loadEvents(){
     })}`;
 
     if(events.length){
-      const latest = [...events].sort((a,b) => a.date.localeCompare(b.date))[0];
-      const d = new Date(`${latest.date}T00:00:00`);
-      shownMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+      const firstValid = events.filter(e => /^\d{4}-\d{2}-\d{2}$/.test(e.date)).sort((a,b) => a.date.localeCompare(b.date))[0];
+      if(firstValid){ const [y,m] = firstValid.date.split("-").map(Number); shownMonth = new Date(y,m-1,1); } else { shownMonth = new Date(2026,6,1); }
     }
 
     $("loadingState").classList.add("hidden");
@@ -264,7 +280,7 @@ async function loadEvents(){
   } catch(error) {
     console.error(error);
     if (Array.isArray(window.FALLBACK_EVENTS) && window.FALLBACK_EVENTS.length) {
-      events = window.FALLBACK_EVENTS;
+      events = window.FALLBACK_EVENTS.map(e => ({...e, date: normalizeDate(e.date)}));
       $("loadingState").classList.add("hidden");
       $("totalEvents").textContent = `全${events.length}件`;
       $("lastUpdated").textContent = "最終更新：2026.07.13";
