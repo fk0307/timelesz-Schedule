@@ -302,11 +302,25 @@ $("nextMonth").onclick = () => {
   shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth()+1, 1);
   renderCalendar();
 };
-$("todayBtn").onclick = () => {
+$("todayBtn").addEventListener("click", () => {
   const d = new Date();
   shownMonth = new Date(d.getFullYear(), d.getMonth(), 1);
   renderCalendar();
-};
+
+  requestAnimationFrame(() => {
+    const calendarPanel = document.querySelector(".calendar-panel");
+    if(calendarPanel){
+      calendarPanel.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    const todayCell = document.querySelector(".day.today");
+    if(todayCell){
+      todayCell.classList.remove("today-flash");
+      void todayCell.offsetWidth;
+      todayCell.classList.add("today-flash");
+    }
+  });
+});
 $("searchInput").oninput = e => {
   searchText = e.target.value;
   renderCalendar();
