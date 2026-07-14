@@ -15,6 +15,17 @@ const memberEmoji = {
 
 const memberOrder = ["timelesz","佐藤勝利","菊池風磨","松島聡","寺西拓人","原嘉孝","橋本将生","猪俣周杜","篠塚大輝"];
 
+const memberBirthdays = {
+  "佐藤勝利":"1996-10-30",
+  "菊池風磨":"1995-03-07",
+  "松島聡":"1997-11-27",
+  "寺西拓人":"1994-12-31",
+  "原嘉孝":"1995-09-25",
+  "橋本将生":"1999-10-17",
+  "猪俣周杜":"2001-08-17",
+  "篠塚大輝":"2002-07-09"
+};
+
 const categories = {
   TV:{label:"TV",icon:"monitor"},
   RADIO:{label:"RADIO",icon:"radio"},
@@ -155,6 +166,28 @@ function validateData(list){
   return warnings;
 }
 
+
+function getBirthdayAge(event){
+  if(event.category !== "BIRTHDAY") return null;
+  const member = event.members.find(name => memberBirthdays[name]);
+  if(!member) return null;
+
+  const birth = new Date(`${memberBirthdays[member]}T00:00:00`);
+  const eventDate = new Date(`${event.date}T00:00:00`);
+  if(Number.isNaN(birth.getTime()) || Number.isNaN(eventDate.getTime())) return null;
+
+  let age = eventDate.getFullYear() - birth.getFullYear();
+  const birthdayPassed = eventDate.getMonth() > birth.getMonth() ||
+    (eventDate.getMonth() === birth.getMonth() && eventDate.getDate() >= birth.getDate());
+  if(!birthdayPassed) age--;
+  return age;
+}
+
+function getEventTitle(event){
+  const age = getBirthdayAge(event);
+  return age === null ? event.title : `${event.title}（${age}歳）`;
+}
+
 function isNew(event){
   if(!event.addedAt) return false;
   const added = new Date(event.addedAt);
@@ -270,7 +303,7 @@ function openDay(date){
       <div class="event-top">
         <div class="event-icon">${icon(categories[e.category]?.icon || "layers")}</div>
         <div>
-          <h3 class="event-title">${e.title}${isNew(e) ? '<span class="new-badge">NEW</span>' : ""}</h3>
+          <h3 class="event-title">${getEventTitle(e)}${isNew(e) ? '<span class="new-badge">NEW</span>' : ""}</h3>
           <div class="event-meta">
             ${e.time ? `<span>${icon("clock")}${e.time}〜</span>` : ""}
             ${e.venue ? `<span>${icon("pin")}${e.venue}</span>` : ""}
@@ -300,9 +333,6 @@ async function loadEvents(){
       ? `データ確認：${warnings.length}件（管理用）`
       : "";
     $("totalEvents").textContent = `全${events.length}件`;
-    $("lastUpdated").textContent = `最終更新：${new Date().toLocaleString("ja-JP", {
-      year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"
-    })}`;
 
     if(events.length){
       const firstValid = events.filter(e => /^\d{4}-\d{2}-\d{2}$/.test(e.date)).sort((a,b) => a.date.localeCompare(b.date))[0];
@@ -318,7 +348,6 @@ async function loadEvents(){
       events = window.FALLBACK_EVENTS.map(e => ({...e, date: normalizeDate(e.date)}));
       $("loadingState").classList.add("hidden");
       $("totalEvents").textContent = `全${events.length}件`;
-      $("lastUpdated").textContent = "最終更新：2026.07.13";
       $("dataWarnings").textContent = "現在は保存済みデータを表示しています。";
       renderFilters();
       renderCalendar();

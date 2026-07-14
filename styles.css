@@ -65,6 +65,7 @@ h1 {
 .controls { margin-bottom: 12px; padding: 14px; }
 .search {
   display: flex;
+  min-height: 34px;
   align-items: center;
   gap: 8px;
   padding: 0 12px;
@@ -75,7 +76,7 @@ h1 {
 }
 .search input {
   width: 100%;
-  padding: 12px 0;
+  padding: 7px 0;
   background: transparent;
   border: 0;
   outline: 0;
@@ -233,16 +234,8 @@ h1 {
   text-align: center;
 }
 .data-warnings { flex-basis: 100%; color: #965942; line-height: 1.5; }
-.update-info {
-  flex-basis: 100%;
-  max-width: 360px;
-  margin: 8px auto 0;
-  padding-top: 10px;
-  border-top: 1px solid rgba(73, 55, 44, .10);
-  text-align: left;
-}
-.update-version { margin-bottom: 4px; color: var(--ink); font-weight: 700; }
-.update-info ul { margin: 0; padding-left: 18px; line-height: 1.55; }
+.version-info { color: var(--ink); font-weight: 700; }
+.version-info span { margin-left: 5px; color: var(--muted); font-weight: 500; }
 
 dialog {
   width: min(calc(100% - 18px), 620px);
