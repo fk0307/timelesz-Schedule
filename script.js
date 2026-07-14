@@ -103,11 +103,25 @@ function normalizeRows(rows){
   return rows.slice(1).map((row, index) => {
     const obj = {};
     headers.forEach((h, i) => obj[h] = (row[i] || "").trim());
-    const members = (obj.members || "")
+    const shifted = /^TS-/.test(obj.date || "") && !!normalizeDate(obj.time);
+    const rawMembers = shifted ? (obj.note || "") : (obj.members || "");
+    const members = rawMembers
       .split(/[、,，]/)
       .map(v => v.trim())
       .filter(v => memberOrder.includes(v));
-    return {
+    return shifted ? {
+      id: obj.date || `row-${index+2}`,
+      date: normalizeDate(obj.time),
+      time: obj.category || "",
+      category: (obj.title || "").toUpperCase(),
+      title: obj.venue || "",
+      venue: obj.members || "",
+      members,
+      note: obj.url || "",
+      url: obj.id || "",
+      status: obj.status || "公開",
+      addedAt: obj.added_at || obj.addedat || ""
+    } : {
       id: obj.id || `row-${index+2}`,
       date: normalizeDate(obj.date),
       time: obj.time || "",
@@ -259,6 +273,9 @@ async function loadEvents(){
     if(!response.ok) throw new Error(`HTTP ${response.status}`);
     const csv = await response.text();
     events = normalizeRows(parseCSV(csv));
+    if(!events.length && Array.isArray(window.FALLBACK_EVENTS)){
+      events = window.FALLBACK_EVENTS.map(e => ({...e, date: normalizeDate(e.date)}));
+    }
 
     const warnings = validateData(events);
     $("dataWarnings").textContent = warnings.length

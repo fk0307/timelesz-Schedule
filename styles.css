@@ -317,3 +317,14 @@ dialog{
     font-size:11px!important;
   }
 }
+
+/* Ver.1.5 force beige */
+:root{color-scheme:only light!important;}
+html,body{color-scheme:only light!important;forced-color-adjust:none!important;background:#f7f2ea!important;background-image:none!important;filter:none!important;}
+.app,.header,.site-footer{background:#f7f2ea!important;background-image:none!important;}
+.panel,.controls,.calendar-panel{background:#e7d9c4!important;background-image:none!important;}
+.search,.chip,.today-btn,.day{background:#fffaf3!important;background-image:none!important;color:#302b26!important;}
+.chip.active{background:#302b26!important;color:#fff!important;}
+.month-label,.day-number,.section-label,h1,h2,h3{color:#302b26!important;}
+.weekdays,.count-label,.site-footer,.kicker{color:#766b60!important;}
+@media(prefers-color-scheme:dark){html,body,.app,.header,.site-footer{background:#f7f2ea!important;color:#302b26!important}.panel,.controls,.calendar-panel{background:#e7d9c4!important}.search,.chip,.today-btn,.day{background:#fffaf3!important;color:#302b26!important}}
