@@ -55,6 +55,7 @@ let shownMonth = new Date(2026, 6, 1);
 let selectedMember = "ALL";
 let selectedCategory = "ALL";
 let searchText = "";
+let selectedDate = "";
 const $ = id => document.getElementById(id);
 
 function parseCSV(text){
@@ -223,11 +224,13 @@ function renderCalendar(){
   for(let day=1; day<=lastDate; day++){
     const date = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
     const dayEvents = monthEvents.filter(e => e.date === date);
-    const uniqueMembers = memberOrder.filter(m => dayEvents.some(e => e.members.includes(m)));
+    const uniqueMembers = selectedMember === "ALL"
+      ? memberOrder.filter(m => dayEvents.some(e => e.members.includes(m)))
+      : (dayEvents.length ? [selectedMember] : []);
     const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===day;
 
     html += `
-      <div class="day ${dayEvents.length?"has-events":""} ${isToday?"today":""}" data-date="${date}">
+      <div class="day ${dayEvents.length?"has-events":""} ${isToday?"today":""} ${selectedDate===date?"selected":""}" data-date="${date}">
         <div class="day-number">${day}</div>
         <div class="member-icons">
           ${uniqueMembers.map(m => `<span class="member-emoji">${memberEmoji[m]}</span>`).join("")}
@@ -236,8 +239,13 @@ function renderCalendar(){
   }
 
   $("calendarGrid").innerHTML = html;
-  document.querySelectorAll(".day.has-events").forEach(cell => {
-    cell.onclick = () => openDay(cell.dataset.date);
+  document.querySelectorAll(".day[data-date]").forEach(cell => {
+    cell.onclick = () => {
+      selectedDate = cell.dataset.date;
+      const hasEvents = cell.classList.contains("has-events");
+      renderCalendar();
+      if(hasEvents) openDay(selectedDate);
+    };
   });
 }
 
@@ -258,7 +266,11 @@ function openDay(date){
             ${e.venue ? `<span>${icon("pin")}${e.venue}</span>` : ""}
             <span>${e.category}</span>
           </div>
-          <div class="event-members">${e.members.map(m => `${memberEmoji[m]}${m}`).join("　")}</div>
+          <div class="event-members">${
+            (selectedMember === "ALL" ? e.members : e.members.filter(m => m === selectedMember))
+              .map(m => `${memberEmoji[m]}${m}`)
+              .join("　")
+          }</div>
           ${e.note ? `<p class="event-note">${e.note}</p>` : ""}
           ${e.url ? `<a class="link-button" href="${e.url}" target="_blank" rel="noopener">${icon(e.category==="YOUTUBE"?"play":"link")}${e.category==="YOUTUBE"?"動画を見る":"公式ページを見る"}</a>` : ""}
         </div>
@@ -313,15 +325,18 @@ async function loadEvents(){
 
 $("prevMonth").onclick = () => {
   shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth()-1, 1);
+  selectedDate = "";
   renderCalendar();
 };
 $("nextMonth").onclick = () => {
   shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth()+1, 1);
+  selectedDate = "";
   renderCalendar();
 };
 $("todayBtn").addEventListener("click", () => {
   const d = new Date();
   shownMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+  selectedDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   renderCalendar();
 
   requestAnimationFrame(() => {

@@ -328,3 +328,100 @@ html,body{color-scheme:only light!important;forced-color-adjust:none!important;b
 .month-label,.day-number,.section-label,h1,h2,h3{color:#302b26!important;}
 .weekdays,.count-label,.site-footer,.kicker{color:#766b60!important;}
 @media(prefers-color-scheme:dark){html,body,.app,.header,.site-footer{background:#f7f2ea!important;color:#302b26!important}.panel,.controls,.calendar-panel{background:#e7d9c4!important}.search,.chip,.today-btn,.day{background:#fffaf3!important;color:#302b26!important}}
+
+/* Ver.1.6 final design overrides */
+:root{
+  --ink:#5a402d!important;
+  --muted:#816b59!important;
+  --today:#9b6b36!important;
+}
+
+body,
+h1,h2,h3,
+.month-label,
+.day-number,
+.section-label,
+.search input,
+.event-title,
+.event-members,
+.update-version,
+a{
+  color:#5a402d!important;
+}
+
+.kicker,
+.weekdays,
+.count-label,
+.site-footer,
+.event-meta,
+.event-note,
+.search input::placeholder{
+  color:#816b59!important;
+}
+
+.chip.active{
+  background:#5a402d!important;
+  border-color:#5a402d!important;
+  color:#fff!important;
+}
+.chip.active span,
+.chip.active svg{
+  color:#fff!important;
+}
+
+.today-btn{
+  padding:7px 13px!important;
+  font-size:13px!important;
+  min-height:32px!important;
+}
+
+.chip{
+  padding:5px 10px!important;
+  min-height:30px!important;
+  font-size:12px!important;
+  line-height:1.05!important;
+}
+.chip svg{
+  width:16px!important;
+  height:16px!important;
+}
+
+.day,
+.day.today{
+  border-radius:0!important;
+}
+
+@media(max-width:560px){
+  .today-btn{
+    padding:7px 12px!important;
+    font-size:12.5px!important;
+    min-height:31px!important;
+  }
+  .chip{
+    padding:5px 9px!important;
+    min-height:29px!important;
+    font-size:11.5px!important;
+  }
+}
+
+/* Ver.1.7 calendar selection and member filter */
+.day{
+  background:#d8c3a5!important;
+}
+
+.day.selected{
+  background:#fffaf3!important;
+  border-color:#b89467!important;
+}
+
+.day.today:not(.selected){
+  background:#d8c3a5!important;
+}
+
+.day.today.selected{
+  background:#fffaf3!important;
+}
+
+.day[data-date]{
+  cursor:pointer;
+}
