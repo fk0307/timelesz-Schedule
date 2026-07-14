@@ -1,34 +1,13 @@
-timelesz Schedule 公開手順（GitHub Pages）
+GitHub Pagesへの更新手順
 
-1. GitHubで新しいリポジトリを作成
-   リポジトリ名：timelesz-schedule
+1. ZIPを解凍します。
+2. GitHubの「fk0307/timelesz-Schedule」を開きます。
+3. 「Add file」→「Upload files」を選びます。
+4. 解凍したフォルダ内のファイルをすべてアップロードします。
+5. 下部の「Commit changes」を押します。
+6. 1〜数分後、公開URLを再読み込みします。
 
-2. このZIPを解凍
+公開URL
+https://fk0307.github.io/timelesz-Schedule/
 
-3. 解凍した中身をすべてGitHubへアップロード
-   index.html
-   styles.css
-   script.js
-   fallback-data.js
-   admin.html
-   README.txt
-   .nojekyll
-
-4. GitHubのリポジトリで
-   Settings → Pages
-
-5. Build and deployment
-   Source：Deploy from a branch
-   Branch：main
-   Folder：/(root)
-
-6. Save
-
-7. 数分後、公開URLが表示されます
-   https://あなたのGitHubユーザー名.github.io/timelesz-schedule/
-
-公開後の通常画面：
-index.html
-
-運営チェック画面：
-admin.html
+スマホで古い表示が残る場合は、ページを再読み込みするかブラウザのキャッシュを削除してください。

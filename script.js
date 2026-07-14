@@ -44,7 +44,8 @@ const iconPaths = {
   "chevron-left":'<path d="m15 18-6-6 6-6"></path>',
   "chevron-right":'<path d="m9 18 6-6-6-6"></path>',
   x:'<path d="M18 6 6 18M6 6l12 12"></path>',
-  layers:'<path d="m12 2 9 5-9 5-9-5z"></path><path d="m3 12 9 5 9-5M3 17l9 5 9-5"></path>'
+  layers:'<path d="m12 2 9 5-9 5-9-5z"></path><path d="m3 12 9 5 9-5M3 17l9 5 9-5"></path>',
+  calendar:'<rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M16 3v4M8 3v4M3 10h18"></path>'
 };
 
 const icon = name => `<svg viewBox="0 0 24 24" aria-hidden="true">${iconPaths[name] || ""}</svg>`;
@@ -55,7 +56,8 @@ let shownMonth = new Date(2026, 6, 1);
 let selectedMember = "ALL";
 let selectedCategory = "ALL";
 let searchText = "";
-let selectedDate = "";
+const now = new Date();
+let selectedDate = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`;
 const $ = id => document.getElementById(id);
 
 function parseCSV(text){
@@ -224,27 +226,35 @@ function renderCalendar(){
   for(let day=1; day<=lastDate; day++){
     const date = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
     const dayEvents = monthEvents.filter(e => e.date === date);
-    const uniqueMembers = selectedMember === "ALL"
+    const visibleMembers = selectedMember === "ALL"
       ? memberOrder.filter(m => dayEvents.some(e => e.members.includes(m)))
       : (dayEvents.length ? [selectedMember] : []);
     const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===day;
+    const isSelected = selectedDate === date;
 
     html += `
-      <div class="day ${dayEvents.length?"has-events":""} ${isToday?"today":""} ${selectedDate===date?"selected":""}" data-date="${date}">
+      <div class="day ${dayEvents.length?"has-events":""} ${isToday?"today":""} ${isSelected?"selected":""}" data-date="${date}" role="button" tabindex="0" aria-label="${month+1}月${day}日${dayEvents.length ? `、予定${dayEvents.length}件` : "、予定なし"}">
         <div class="day-number">${day}</div>
         <div class="member-icons">
-          ${uniqueMembers.map(m => `<span class="member-emoji">${memberEmoji[m]}</span>`).join("")}
+          ${visibleMembers.map(m => `<span class="member-emoji">${memberEmoji[m]}</span>`).join("")}
         </div>
       </div>`;
   }
 
   $("calendarGrid").innerHTML = html;
-  document.querySelectorAll(".day[data-date]").forEach(cell => {
-    cell.onclick = () => {
+  document.querySelectorAll(".day:not(.blank)").forEach(cell => {
+    const selectDay = () => {
       selectedDate = cell.dataset.date;
       const hasEvents = cell.classList.contains("has-events");
       renderCalendar();
       if(hasEvents) openDay(selectedDate);
+    };
+    cell.onclick = selectDay;
+    cell.onkeydown = event => {
+      if(event.key === "Enter" || event.key === " "){
+        event.preventDefault();
+        selectDay();
+      }
     };
   });
 }
@@ -266,11 +276,7 @@ function openDay(date){
             ${e.venue ? `<span>${icon("pin")}${e.venue}</span>` : ""}
             <span>${e.category}</span>
           </div>
-          <div class="event-members">${
-            (selectedMember === "ALL" ? e.members : e.members.filter(m => m === selectedMember))
-              .map(m => `${memberEmoji[m]}${m}`)
-              .join("　")
-          }</div>
+          <div class="event-members">${e.members.map(m => `${memberEmoji[m]}${m}`).join("　")}</div>
           ${e.note ? `<p class="event-note">${e.note}</p>` : ""}
           ${e.url ? `<a class="link-button" href="${e.url}" target="_blank" rel="noopener">${icon(e.category==="YOUTUBE"?"play":"link")}${e.category==="YOUTUBE"?"動画を見る":"公式ページを見る"}</a>` : ""}
         </div>
@@ -325,12 +331,10 @@ async function loadEvents(){
 
 $("prevMonth").onclick = () => {
   shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth()-1, 1);
-  selectedDate = "";
   renderCalendar();
 };
 $("nextMonth").onclick = () => {
   shownMonth = new Date(shownMonth.getFullYear(), shownMonth.getMonth()+1, 1);
-  selectedDate = "";
   renderCalendar();
 };
 $("todayBtn").addEventListener("click", () => {

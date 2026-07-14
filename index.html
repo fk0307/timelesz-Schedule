@@ -1,80 +1,79 @@
 <!doctype html>
 <html lang="ja">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#e7d9c4">
-<meta name="color-scheme" content="only light">
-<title>timelesz Schedule</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e7d9c4">
+  <meta name="color-scheme" content="only light">
+  <title>timelesz Schedule</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app">
-<header class="header">
-  <div>
-    <p class="kicker">FAN SCHEDULE</p>
-    <h1>timelesz Schedule</h1>
+  <div class="app">
+    <header class="header">
+      <div>
+        <p class="kicker">FAN SCHEDULE</p>
+        <h1>timelesz Schedule</h1>
+      </div>
+      <button id="todayBtn" class="today-btn" type="button" aria-label="今日の月へ移動">
+        <span data-icon="calendar"></span><span>今日</span>
+      </button>
+    </header>
+
+    <section class="panel controls">
+      <label class="search">
+        <span data-icon="search"></span>
+        <input id="searchInput" type="search" placeholder="番組名・雑誌名などを検索">
+      </label>
+      <p class="section-label">MEMBER</p>
+      <div id="memberFilters" class="scroll-row"></div>
+      <p class="section-label">CATEGORY</p>
+      <div id="categoryFilters" class="scroll-row"></div>
+    </section>
+
+    <section class="panel calendar-panel">
+      <div class="month-nav">
+        <button id="prevMonth" class="icon-btn" type="button" aria-label="前の月"><span data-icon="chevron-left"></span></button>
+        <div>
+          <div id="monthLabel" class="month-label"></div>
+          <div id="countLabel" class="count-label"></div>
+        </div>
+        <button id="nextMonth" class="icon-btn" type="button" aria-label="次の月"><span data-icon="chevron-right"></span></button>
+      </div>
+      <div class="weekdays">
+        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+      </div>
+      <div id="loadingState" class="loading-state">予定を読み込んでいます…</div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+    </section>
+
+    <footer class="site-footer">
+      <div id="lastUpdated">最終読込：—</div>
+      <div id="totalEvents">全0件</div>
+      <div id="dataWarnings" class="data-warnings"></div>
+      <div class="update-info">
+        <div class="update-version">Ver.1.8</div>
+        <ul>
+          <li>カレンダーを四角い独立マスに変更</li>
+          <li>通常日・選択日のベージュ配色を調整</li>
+          <li>メンバー絞り込み時の絵文字表示を修正</li>
+        </ul>
+      </div>
+    </footer>
   </div>
-  <button id="todayBtn" class="today-btn" type="button" aria-label="今日の月へ移動">今日</button>
-</header>
 
-<section class="panel controls">
-  <label class="search">
-    <span data-icon="search"></span>
-    <input id="searchInput" type="search" placeholder="番組名・雑誌名などを検索">
-  </label>
-
-  <p class="section-label">MEMBER</p>
-  <div id="memberFilters" class="scroll-row"></div>
-
-  <p class="section-label">CATEGORY</p>
-  <div id="categoryFilters" class="scroll-row"></div>
-</section>
-
-<section class="panel calendar-panel">
-  <div class="month-nav">
-    <button id="prevMonth" class="icon-btn" aria-label="前の月"><span data-icon="chevron-left"></span></button>
-    <div>
-      <div id="monthLabel" class="month-label"></div>
-      <div id="countLabel" class="count-label"></div>
+  <dialog id="eventDialog">
+    <div class="dialog-head">
+      <div>
+        <p class="kicker">SCHEDULE</p>
+        <h2 id="dialogDate"></h2>
+      </div>
+      <button id="closeDialog" class="icon-btn" type="button" aria-label="閉じる"><span data-icon="x"></span></button>
     </div>
-    <button id="nextMonth" class="icon-btn" aria-label="次の月"><span data-icon="chevron-right"></span></button>
-  </div>
+    <div id="dialogEvents" class="dialog-events"></div>
+  </dialog>
 
-  <div class="weekdays">
-    <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
-  </div>
-  <div id="loadingState" class="loading-state">予定を読み込んでいます…</div>
-  <div id="calendarGrid" class="calendar-grid"></div>
-</section>
-
-<footer class="site-footer">
-  <div id="lastUpdated">最終読込：—</div>
-  <div id="totalEvents">全0件</div>
-  <div id="dataWarnings" class="data-warnings"></div>
-  <div class="update-info">
-    <div class="update-version">Ver.1.7</div>
-    <ul>
-      <li>8月予定を追加</li>
-      <li>YouTubeリンク対応</li>
-      <li>選択メンバー表示と選択日の配色を改善</li>
-    </ul>
-  </div>
-</footer>
-</div>
-
-<dialog id="eventDialog">
-  <div class="dialog-head">
-    <div>
-      <p class="kicker">SCHEDULE</p>
-      <h2 id="dialogDate"></h2>
-    </div>
-    <button id="closeDialog" class="icon-btn" aria-label="閉じる"><span data-icon="x"></span></button>
-  </div>
-  <div id="dialogEvents" class="dialog-events"></div>
-</dialog>
-
-<script src="fallback-data.js"></script>
-<script src="script.js"></script>
+  <script src="fallback-data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
