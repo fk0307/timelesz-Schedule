@@ -197,3 +197,61 @@ dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-
   margin:0;
   flex:0 0 auto;
 }
+
+
+/* Ver.1.9.8 final — exact visual centering for Threads and URL icons */
+.share-option.threads,
+.share-option.url,
+.event-share .social-circle.threads,
+.event-share .social-circle.url{
+  position:relative;
+  display:grid;
+  place-items:center;
+  padding:0;
+  overflow:hidden;
+}
+.share-option.threads{
+  font-size:0;
+}
+.share-option.threads .brand-threads{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0 0 2px;
+  font-size:24px;
+  line-height:1;
+  text-align:center;
+  transform:none;
+}
+.share-option.url svg,
+.event-share .social-circle.url svg{
+  position:absolute;
+  left:50%;
+  top:50%;
+  display:block;
+  margin:0;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+}
+.event-share .social-circle.threads{
+  color:transparent;
+  font-size:0;
+  line-height:0;
+}
+.event-share .social-circle.threads::before{
+  content:"@";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:0 0 2px;
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+  line-height:1;
+  text-align:center;
+}

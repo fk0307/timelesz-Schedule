@@ -1,4 +1,4 @@
-timelesz Schedule Ver.1.9.7
+timelesz Schedule Ver.1.9.8
 
 公開用ファイル
 - index.html
@@ -48,3 +48,9 @@ Ver.1.9.7 更新内容
 Ver.1.9.8 更新内容
 - トップページの共有画面でThreads・URLコピーを丸の中央に調整
 - 日付詳細の共有アイコンでThreadsを中央に調整
+
+
+Ver.1.9.8 更新内容
+- トップ共有画面のThreadsを丸の中央へ調整
+- トップ共有画面のURLコピーを丸の中央へ調整
+- 予定詳細のThreads共有アイコンを丸の中央へ調整
