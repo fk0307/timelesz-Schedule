@@ -175,3 +175,25 @@ dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-
   line-height:1;
   white-space:nowrap;
 }
+
+/* Ver.1.9.8 share icon centering */
+.share-option.threads,
+.share-option.url,
+.event-share .social-circle.threads,
+.event-share .social-circle.url{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+.share-option.threads .brand-threads,
+.event-share .social-circle.threads{
+  transform:none;
+  text-indent:0;
+}
+.share-option.url svg,
+.event-share .social-circle.url svg{
+  display:block;
+  margin:0;
+  flex:0 0 auto;
+}
