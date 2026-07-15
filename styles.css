@@ -255,3 +255,14 @@ dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-
   line-height:1;
   text-align:center;
 }
+
+
+/* Ver.2.1 countdown */
+.countdown-list:empty{display:none}
+.countdown-list:not(:empty){margin-top:9px}
+.countdown-item{
+  width:100%;
+  min-width:0;
+  text-align:left;
+}
+.countdown-item:active{transform:scale(.995)}
