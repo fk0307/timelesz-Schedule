@@ -21,3 +21,33 @@ dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-
 .share-dialog{width:min(calc(100% - 32px),360px);padding:0;background:var(--surface);border:0;border-radius:18px}.share-dialog-wrap{padding:15px 16px 16px}.share-dialog-head{display:flex;align-items:center;justify-content:space-between}.share-dialog-head h2{margin:0;font-size:13px;letter-spacing:.08em}.share-options{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:13px}.share-option{display:grid;width:39px;height:39px;place-items:center;padding:0;border:0;border-radius:50%;color:#fff}.share-option.x,.share-option.threads{background:#111}.share-option.line{background:#06c755}.share-option.instagram{background:radial-gradient(circle at 30% 110%,#ffd600 0 19%,#ff7a00 34%,#ff0169 58%,#d300c5 78%,#7638fa 100%)}.share-option.url{background:#b79977}.share-option svg{width:19px;height:19px;stroke-width:2}.brand-x{font-size:17px;font-weight:700;line-height:1}.brand-line{font-size:8.5px;font-weight:900;letter-spacing:-.04em}.brand-threads{font-size:22px;font-weight:800;line-height:1}.brand-instagram{position:relative;display:block;width:22px;height:22px;border:2px solid #fff;border-radius:6px}.brand-instagram::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border:2px solid #fff;border-radius:50%;transform:translate(-50%,-50%)}.brand-instagram::after{content:"";position:absolute;right:3px;top:3px;width:3px;height:3px;background:#fff;border-radius:50%}.brand-instagram i{display:none}.close-share{display:block;margin:15px auto 0;padding:7px 15px;background:var(--theme);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:10px;font-weight:800}
 .event-share .social-circle{width:32px;height:32px;font-size:9px}.event-share .social-circle.line{font-size:6px}.event-share .social-circle.instagram{position:relative;font-size:0}.event-share .social-circle.instagram::before{content:"";width:17px;height:17px;border:2px solid #fff;border-radius:5px}.event-share .social-circle.instagram::after{content:"";position:absolute;width:5px;height:5px;border:2px solid #fff;border-radius:50%}.event-share .social-circle.threads{font-size:18px}.event-share .social-circle.url svg{width:15px;height:15px}
 .compact-dialog form{padding:17px}.compact-dialog h2{margin-bottom:13px;font-size:19px}.jump-fields label{font-size:11px}.jump-fields select{height:46px;font-size:17px;font-weight:700}.dialog-actions{gap:6px;margin-top:14px}.secondary-btn,.primary-btn{padding:6px 9px;border-radius:7px;font-size:9px}.primary-btn{font-size:8.5px}
+
+
+/* Ver.1.9.2 adjustments */
+.header-actions{gap:2px}
+.header-icon-btn{width:31px;height:34px}
+.share-header-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding-top:2px}
+.share-header-btn svg{width:16px;height:16px}
+.share-header-btn small{margin-top:1px;font-size:5px;font-weight:800;line-height:1;letter-spacing:.03em}
+
+.day{padding-bottom:3px}
+.member-icons{position:absolute;left:4px;right:2px;bottom:3px;width:auto;margin:0;grid-template-columns:repeat(3,max-content);grid-auto-rows:minmax(11px,auto);align-items:end;justify-content:start;justify-items:start;gap:5px 3px;overflow:visible;line-height:1.08}
+.member-emoji{font-size:clamp(9px,2.65vw,12.5px);line-height:1.08}
+
+.share-dialog-head{justify-content:flex-start}
+.share-options{width:100%;justify-content:center;gap:10px;margin-top:12px}
+.share-option{width:41px;height:41px}
+.brand-x{font-size:20px;font-weight:800}
+.brand-line{font-size:10.5px;font-weight:900;letter-spacing:-.06em}
+.brand-threads{font-size:24px}
+.brand-instagram{width:24px;height:24px;border-radius:7px}
+.brand-instagram::before{width:8px;height:8px}
+
+.event-share{justify-content:center;gap:8px}
+.event-share .social-circle{width:34px;height:34px;font-size:11px}
+.event-share .social-circle.x{font-size:14px}
+.event-share .social-circle.line{font-size:7.5px;font-weight:900;letter-spacing:-.05em}
+.event-share .social-circle.threads{font-size:20px}
+.event-share .social-circle.instagram::before{width:18px;height:18px;border-radius:6px}
+.event-share .social-circle.instagram::after{width:6px;height:6px}
+.event-share .social-circle.url svg{width:17px;height:17px}
