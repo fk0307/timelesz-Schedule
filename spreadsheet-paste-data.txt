@@ -19,3 +19,11 @@ item	value
 version	Ver.1.9
 lastUpdated	2026.7.15
 scheduleUpdated	2026.7.15
+
+【Ver.1.9.3 更新履歴シートへ追加】
+Ver.1.9.3	2026.7.15	メンカラ絵文字の配置を統一
+Ver.1.9.3	2026.7.15	共有アイコンの位置とデザインを調整
+
+【サイト情報シート更新】
+version	Ver.1.9.3
+lastUpdated	2026.7.15
