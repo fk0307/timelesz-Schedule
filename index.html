@@ -12,9 +12,14 @@
   <div class="app">
     <header class="header">
       <h1>timelesz Schedule</h1>
-      <button id="historyBtn" class="history-btn" type="button" aria-label="更新履歴を開く">
-        <span data-icon="history"></span>
-      </button>
+      <div class="header-actions">
+        <button id="shareBtn" class="header-icon-btn" type="button" aria-label="このスケジュールを共有">
+          <span data-icon="share-2"></span>
+        </button>
+        <button id="historyBtn" class="header-icon-btn" type="button" aria-label="更新履歴を開く">
+          <span data-icon="history"></span>
+        </button>
+      </div>
     </header>
 
     <section class="panel controls">
@@ -45,16 +50,8 @@
 
     <footer class="site-footer">
       <div class="footer-meta">
-        <div id="siteVersion" class="footer-version">Ver.1.9</div>
+        <div id="siteVersion" class="footer-version">Ver.1.9.1</div>
         <div id="siteUpdated" class="footer-updated">最終更新日 2026.7.15</div>
-        <div class="footer-share-row" aria-label="このスケジュールを共有">
-          <div class="share-label-icon" aria-hidden="true"><span data-icon="share-2"></span><small>SHERE</small></div>
-          <button class="social-circle x" data-share="x" type="button" aria-label="Xで共有">X</button>
-          <button class="social-circle line" data-share="line" type="button" aria-label="LINEで共有">LINE</button>
-          <button class="social-circle instagram" data-share="instagram" type="button" aria-label="Instagramで共有">◎</button>
-          <button class="social-circle threads" data-share="threads" type="button" aria-label="Threadsで共有">@</button>
-          <button class="social-circle url" data-share="url" type="button" aria-label="URLをコピー"><span data-icon="link"></span></button>
-        </div>
         <div class="creator">Created by kne27</div>
       </div>
       <div id="dataWarnings" class="data-warnings"></div>
@@ -67,6 +64,23 @@
       <button id="closeDialog" class="plain-close" type="button" aria-label="閉じる"><span data-icon="x"></span></button>
     </div>
     <div id="dialogEvents" class="dialog-events"></div>
+  </dialog>
+
+  <dialog id="shareDialog" class="share-dialog">
+    <div class="share-dialog-wrap">
+      <div class="share-dialog-head">
+        <h2>SHARE</h2>
+        <button id="closeShare" class="plain-close" type="button" aria-label="閉じる"><span data-icon="x"></span></button>
+      </div>
+      <div class="share-options">
+        <button class="share-option x" data-share="x" type="button" aria-label="Xで共有"><span class="brand-x">X</span></button>
+        <button class="share-option line" data-share="line" type="button" aria-label="LINEで共有"><span class="brand-line">LINE</span></button>
+        <button class="share-option instagram" data-share="instagram" type="button" aria-label="Instagramで共有"><span class="brand-instagram"><i></i></span></button>
+        <button class="share-option threads" data-share="threads" type="button" aria-label="Threadsで共有"><span class="brand-threads">@</span></button>
+        <button class="share-option url" data-share="url" type="button" aria-label="URLをコピー"><span data-icon="link"></span></button>
+      </div>
+      <button id="closeShareBottom" class="close-share" type="button">CLOSE</button>
+    </div>
   </dialog>
 
   <dialog id="monthJumpDialog" class="compact-dialog">
