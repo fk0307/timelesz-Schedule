@@ -1,4 +1,4 @@
-timelesz Schedule Ver.2.1
+timelesz Schedule Ver.2.2
 
 公開用ファイル
 - index.html
@@ -66,3 +66,8 @@ Ver.2.1 更新内容
 - カレンダー下に発売日・各種締切のカウントダウンを表示
 - 対象日の14日前から最大3件を縦に表示
 - カウントダウンを押すと該当日の予定詳細を表示
+
+
+Ver.2.2 更新内容
+- Google Analytics（GA4）を導入
+- 測定ID G-1H0R13EB3C を設定
