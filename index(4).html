@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#e7d9c4">
+  <meta name="color-scheme" content="only light">
+  <title>timelesz Schedule</title>
+  <link rel="stylesheet" href="styles.css">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1H0R13EB3C"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1H0R13EB3C');
+  </script>
+
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>timelesz Schedule</h1>
+      <div class="header-actions">
+        <button id="shareBtn" class="header-icon-btn share-header-btn" type="button" aria-label="このスケジュールを共有">
+          <span data-icon="share-2"></span>
+          <small>SHARE</small>
+        </button>
+        <button id="historyBtn" class="header-icon-btn" type="button" aria-label="更新履歴を開く">
+          <span data-icon="history"></span>
+        </button>
+      </div>
+    </header>
+
+    <section class="panel controls">
+      <label class="search">
+        <span data-icon="search"></span>
+        <input id="searchInput" type="search" placeholder="番組名・雑誌名などを検索">
+      </label>
+      <p class="section-label">MEMBER</p>
+      <div id="memberFilters" class="scroll-row"></div>
+      <p class="section-label">CATEGORY</p>
+      <div id="categoryFilters" class="scroll-row"></div>
+    </section>
+
+    <section class="panel calendar-panel">
+      <div class="month-nav">
+        <button id="prevMonth" class="icon-btn month-arrow" type="button" aria-label="前の月"><span data-icon="chevron-left"></span></button>
+        <div id="monthLabel" class="month-label"></div>
+        <button id="nextMonth" class="icon-btn month-arrow" type="button" aria-label="次の月"><span data-icon="chevron-right"></span></button>
+        <button id="monthJumpBtn" class="month-jump-btn" type="button" aria-label="年月を指定して移動"><span data-icon="calendar"></span></button>
+      </div>
+      <div class="weekdays">
+        <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
+      </div>
+      <div id="loadingState" class="loading-state">予定を読み込んでいます…</div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <div id="countdownList" class="countdown-list"></div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-meta">
+        <div id="siteVersion" class="footer-version">Ver.2.2</div>
+        <div id="siteUpdated" class="footer-updated">最終更新日 2026.7.16</div>
+        <div class="creator">Created by kne27</div>
+      </div>
+      <div id="dataWarnings" class="data-warnings"></div>
+    </footer>
+  </div>
+
+  <dialog id="eventDialog" class="sheet-dialog">
+    <div class="dialog-head">
+      <div><h2 id="dialogDate"></h2></div>
+      <button id="closeDialog" class="plain-close" type="button" aria-label="閉じる"><span data-icon="x"></span></button>
+    </div>
+    <div id="dialogEvents" class="dialog-events"></div>
+  </dialog>
+
+  <dialog id="shareDialog" class="share-dialog">
+    <div class="share-dialog-wrap">
+      <div class="share-dialog-head">
+        <h2>SHARE</h2>
+      </div>
+      <div class="share-options">
+        <button class="share-option x" data-share="x" type="button" aria-label="Xで共有"><span class="brand-x">X</span></button>
+        <button class="share-option line" data-share="line" type="button" aria-label="LINEで共有"><span class="brand-line">LINE</span></button>
+        <button class="share-option instagram" data-share="instagram" type="button" aria-label="Instagramで共有"><span class="brand-instagram"><i></i></span></button>
+        <button class="share-option threads" data-share="threads" type="button" aria-label="Threadsで共有"><span class="brand-threads">@</span></button>
+        <button class="share-option url" data-share="url" type="button" aria-label="URLをコピー"><span data-icon="link"></span></button>
+      </div>
+      <button id="closeShareBottom" class="close-share" type="button">CLOSE</button>
+    </div>
+  </dialog>
+
+  <dialog id="monthJumpDialog" class="compact-dialog">
+    <form method="dialog" id="monthJumpForm">
+      <h2>年月を選択</h2>
+      <div class="jump-fields">
+        <label>年<select id="jumpYear"></select></label>
+        <label>月<select id="jumpMonth"></select></label>
+      </div>
+      <div class="dialog-actions">
+        <button value="cancel" class="secondary-btn">キャンセル</button>
+        <button id="jumpSubmit" value="default" class="primary-btn">この年月へ移動</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="historyDialog" class="history-dialog">
+    <div class="history-wrap">
+      <h2>更新情報</h2>
+      <section>
+        <h3>最新データ</h3>
+        <div class="history-card latest-data">
+          <strong>公式スケジュール更新</strong>
+          <span id="scheduleUpdated">—</span>
+        </div>
+      </section>
+      <section>
+        <h3>アプリ更新履歴</h3>
+        <div id="historyList" class="history-list"></div>
+      </section>
+      <button id="closeHistory" class="close-history" type="button">CLOSE</button>
+    </div>
+  </dialog>
+
+  <script src="fallback-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

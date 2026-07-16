@@ -1,0 +1,268 @@
+:root{
+  color-scheme:only light;
+  --theme:#e7d9c4;--page:#f4ede3;--surface:#fffaf3;--day:#ddcdb6;--day-border:#cbb697;
+  --ink:#49372c;--muted:#7e6a5a;--line:#cfbda4;--accent:#8f6339;--shadow:0 10px 28px rgba(78,55,34,.09);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif
+}
+*{box-sizing:border-box}html{background:var(--page)}body{margin:0;min-width:320px;background:var(--page);color:var(--ink)}
+button,input,select{font:inherit}button{cursor:pointer;color:inherit}svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.app{max-width:980px;margin:0 auto;padding:8px 8px 36px}.header{display:flex;align-items:center;justify-content:space-between;padding:4px 4px 10px}.header h1{margin:0;font-size:clamp(24px,5vw,38px);letter-spacing:-.04em}.history-btn{display:grid;width:32px;height:32px;place-items:center;background:transparent;border:0;padding:0}.history-btn svg{width:17px;height:17px}
+.panel{background:var(--theme);border:1px solid rgba(105,76,46,.14);border-radius:20px;box-shadow:var(--shadow)}.controls{margin-bottom:10px;padding:11px 12px}.search{display:flex;align-items:center;gap:7px;height:34px;padding:0 10px;background:var(--surface);border:1px solid var(--line);border-radius:12px}.search svg{width:15px;height:15px}.search input{width:100%;padding:5px 0;background:transparent;border:0;outline:0;color:var(--ink);font-size:12px}.search input::placeholder{color:#9a8878}.section-label{margin:10px 0 5px;color:var(--muted);font-size:9px;font-weight:800;letter-spacing:.16em}.scroll-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none}.scroll-row::-webkit-scrollbar{display:none}.chip{display:inline-flex;align-items:center;flex:0 0 auto;gap:4px;min-height:28px;padding:5px 8px;white-space:nowrap;background:#f8f1e7;border:1px solid var(--line);border-radius:999px;color:var(--ink);font-size:11px;line-height:1}.chip svg{width:13px;height:13px}.chip.active{background:var(--ink);border-color:var(--ink);color:#fffaf3}
+.calendar-panel{padding:8px}.month-nav{position:relative;display:grid;grid-template-columns:72px 1fr 72px;align-items:center;height:42px;padding:0 8px}.month-arrow{display:grid;width:32px;height:32px;place-items:center;background:transparent;border:0}.month-arrow:first-child{justify-self:end}.month-arrow:nth-of-type(2){justify-self:start}.month-label{text-align:center;font-size:20px;font-weight:800}.month-jump-btn{position:absolute;right:2px;top:7px;display:grid;width:28px;height:28px;place-items:center;background:transparent;border:0;padding:0}.month-jump-btn svg{width:14px;height:14px}.weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.weekdays{padding:2px 0 5px;color:var(--muted);font-size:9px;text-align:center}.day{position:relative;display:flex;min-width:0;aspect-ratio:4/5;flex-direction:column;padding:4px;background:var(--day);border:1px solid var(--day-border);border-radius:0;color:var(--ink);outline:none;transition:.12s}.day.blank{background:transparent;border-color:transparent;pointer-events:none}.day.selected{background:var(--surface);border-color:#d4b992}.day.today{box-shadow:inset 0 0 0 2px var(--accent)}.day.has-events{cursor:pointer}.day:active{transform:translateY(-1px)}.day-number{position:absolute;left:4px;top:3px;font-size:10px;font-weight:750}.birthday-cake{position:absolute;right:3px;top:2px;font-size:15px}.member-icons{display:grid;width:100%;margin:auto 0;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:min-content;align-items:center;justify-items:start;gap:4px 0;overflow:hidden;line-height:1}.member-emoji{display:block;font-size:clamp(9px,2.7vw,13px);line-height:1}.birthday-red{background:#f7d8d8}.birthday-purple{background:#eadcf3}.birthday-green{background:#dcebdc}.birthday-blue{background:#dceff4}.birthday-lime{background:#e7f0d6}.birthday-pink{background:#f5dce8}.birthday-yellow{background:#f7edc7}.birthday-white{background:#fffdf8}.loading-state{padding:28px 12px;color:var(--muted);font-size:13px;text-align:center}.loading-state.hidden{display:none}
+.countdown-list{display:grid;gap:6px;margin-top:8px}.countdown-item{display:flex;align-items:center;gap:7px;height:34px;padding:0 10px;background:#f9f1e6;border:1px solid var(--line);border-radius:9px;font-size:10px}.countdown-item svg{width:13px;height:13px}.countdown-title{min-width:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.countdown-days{font-weight:800;white-space:nowrap}
+.site-footer{display:flex;justify-content:flex-end;padding:14px 8px 2px;color:var(--muted);font-size:10px}.footer-meta{text-align:right}.footer-version{color:var(--ink);font-weight:700}.footer-updated{margin-top:2px}.footer-share-row{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:5px}.share-label-icon{display:flex;width:22px;flex-direction:column;align-items:center;justify-content:center;color:var(--ink)}.share-label-icon svg{width:13px;height:13px}.share-label-icon small{margin-top:0;font-size:5px;font-weight:800;letter-spacing:.03em}.social-circle{display:grid;width:22px;height:22px;place-items:center;padding:0;border:0;border-radius:50%;color:white;font-size:7px;font-weight:800}.social-circle svg{width:11px;height:11px}.social-circle.x,.social-circle.threads{background:#111}.social-circle.line{background:#06c755;font-size:5px}.social-circle.instagram{background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);font-size:14px}.social-circle.url{background:#b79977}.creator{margin-top:4px;font-size:8px;font-style:italic}.data-warnings{display:none}
+dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-filter:blur(3px)}.sheet-dialog{width:min(calc(100% - 18px),620px);max-height:84vh;padding:15px;background:var(--surface);border:0;border-radius:20px}.dialog-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:10px}.dialog-head h2{margin:0;font-size:20px}.plain-close{display:grid;width:28px;height:28px;place-items:center;background:transparent;border:0}.dialog-events{display:grid;gap:8px}.event-card{padding:12px;background:#fffdf9;border:1px solid var(--line);border-radius:14px}.event-top{display:flex;gap:10px}.event-icon{display:grid;width:34px;height:34px;flex:0 0 auto;place-items:center;background:#eee1d0;border-radius:10px}.event-title{margin:0;font-size:14px;line-height:1.45}.event-meta{display:flex;flex-wrap:wrap;gap:5px 9px;margin-top:6px;color:var(--muted);font-size:11px}.event-meta span{display:inline-flex;align-items:center;gap:3px}.event-meta svg{width:12px;height:12px}.event-members{margin-top:8px;font-size:12px}.event-note{margin:8px 0 0;padding-top:7px;border-top:1px dashed var(--line);font-size:11px;line-height:1.5}.event-share{display:flex;align-items:center;gap:5px;margin-top:10px}.event-share .social-circle{width:30px;height:30px}.link-button{display:inline-flex;align-items:center;gap:5px;margin-top:9px;padding:7px 10px;background:var(--ink);border-radius:999px;color:white;font-size:11px;text-decoration:none}.compact-dialog,.history-dialog{width:min(calc(100% - 28px),430px);padding:0;background:var(--surface);border:0;border-radius:20px}.compact-dialog form{padding:18px}.compact-dialog h2,.history-wrap h2{margin:0 0 16px;font-size:18px}.jump-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}.jump-fields label{display:grid;gap:5px;font-size:11px}.jump-fields select{height:42px;padding:0 10px;background:#fff;border:1px solid var(--line);border-radius:9px;color:var(--ink)}.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.secondary-btn,.primary-btn,.close-history{padding:9px 12px;border:1px solid var(--line);border-radius:9px}.secondary-btn{background:#f5ece0}.primary-btn{background:#b99775;color:white}.history-wrap{padding:18px}.history-wrap section+section{margin-top:14px}.history-wrap h3{margin:0 0 7px;font-size:11px}.history-card{padding:10px 12px;background:#fffdf9;border:1px solid var(--line);border-radius:10px}.latest-data{display:grid;gap:3px;font-size:10px}.latest-data span{color:var(--muted)}.history-list{display:grid;gap:7px}.history-entry{padding:9px 11px;background:#fffdf9;border:1px solid var(--line);border-radius:10px}.history-entry-head{display:flex;gap:12px;align-items:center}.history-entry-head strong{font-size:10px}.history-entry-head span{color:var(--muted);font-size:8px}.history-changes{margin:5px 0 0;padding-left:15px;font-size:8px;line-height:1.55}.history-changes li{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:2}.close-history{display:block;margin:16px auto 0;padding:9px 18px;background:var(--theme);font-size:11px;font-weight:800}
+@media(max-width:560px){.app{padding:6px 7px 28px}.header{padding-top:2px}.calendar-panel{padding:7px}.weekdays,.calendar-grid{gap:4px}.day{padding:4px}.site-footer{padding-right:5px}}
+
+/* Ver.1.9.1 adjustments */
+.header-actions{display:flex;align-items:center;gap:7px}.header-icon-btn{display:grid;width:30px;height:30px;place-items:center;padding:0;background:transparent;border:0;color:var(--ink)}.header-icon-btn svg{width:16px;height:16px}.history-btn{display:none}
+.member-icons{display:grid;width:100%;margin-top:auto;margin-bottom:0;grid-template-columns:repeat(3,max-content);grid-auto-rows:min-content;align-items:end;justify-content:start;justify-items:start;gap:5px 3px;overflow:hidden;line-height:1}.member-emoji{display:block;font-size:clamp(9px,2.7vw,13px);line-height:1}
+.site-footer{padding-top:12px}.creator{margin-top:4px}
+.share-dialog{width:min(calc(100% - 32px),360px);padding:0;background:var(--surface);border:0;border-radius:18px}.share-dialog-wrap{padding:15px 16px 16px}.share-dialog-head{display:flex;align-items:center;justify-content:space-between}.share-dialog-head h2{margin:0;font-size:13px;letter-spacing:.08em}.share-options{display:flex;align-items:center;justify-content:center;gap:9px;margin-top:13px}.share-option{display:grid;width:39px;height:39px;place-items:center;padding:0;border:0;border-radius:50%;color:#fff}.share-option.x,.share-option.threads{background:#111}.share-option.line{background:#06c755}.share-option.instagram{background:radial-gradient(circle at 30% 110%,#ffd600 0 19%,#ff7a00 34%,#ff0169 58%,#d300c5 78%,#7638fa 100%)}.share-option.url{background:#b79977}.share-option svg{width:19px;height:19px;stroke-width:2}.brand-x{font-size:17px;font-weight:700;line-height:1}.brand-line{font-size:8.5px;font-weight:900;letter-spacing:-.04em}.brand-threads{font-size:22px;font-weight:800;line-height:1}.brand-instagram{position:relative;display:block;width:22px;height:22px;border:2px solid #fff;border-radius:6px}.brand-instagram::before{content:"";position:absolute;left:50%;top:50%;width:7px;height:7px;border:2px solid #fff;border-radius:50%;transform:translate(-50%,-50%)}.brand-instagram::after{content:"";position:absolute;right:3px;top:3px;width:3px;height:3px;background:#fff;border-radius:50%}.brand-instagram i{display:none}.close-share{display:block;margin:15px auto 0;padding:7px 15px;background:var(--theme);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-size:10px;font-weight:800}
+.event-share .social-circle{width:32px;height:32px;font-size:9px}.event-share .social-circle.line{font-size:6px}.event-share .social-circle.instagram{position:relative;font-size:0}.event-share .social-circle.instagram::before{content:"";width:17px;height:17px;border:2px solid #fff;border-radius:5px}.event-share .social-circle.instagram::after{content:"";position:absolute;width:5px;height:5px;border:2px solid #fff;border-radius:50%}.event-share .social-circle.threads{font-size:18px}.event-share .social-circle.url svg{width:15px;height:15px}
+.compact-dialog form{padding:17px}.compact-dialog h2{margin-bottom:13px;font-size:19px}.jump-fields label{font-size:11px}.jump-fields select{height:46px;font-size:17px;font-weight:700}.dialog-actions{gap:6px;margin-top:14px}.secondary-btn,.primary-btn{padding:6px 9px;border-radius:7px;font-size:9px}.primary-btn{font-size:8.5px}
+
+
+/* Ver.1.9.2 adjustments */
+.header-actions{gap:2px}
+.header-icon-btn{width:31px;height:34px}
+.share-header-btn{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding-top:2px}
+.share-header-btn svg{width:16px;height:16px}
+.share-header-btn small{margin-top:1px;font-size:5px;font-weight:800;line-height:1;letter-spacing:.03em}
+
+.day{padding-bottom:3px}
+.member-icons{position:absolute;left:4px;right:2px;bottom:3px;width:auto;margin:0;grid-template-columns:repeat(3,max-content);grid-auto-rows:minmax(11px,auto);align-items:end;justify-content:start;justify-items:start;gap:5px 3px;overflow:visible;line-height:1.08}
+.member-emoji{font-size:clamp(9px,2.65vw,12.5px);line-height:1.08}
+
+.share-dialog-head{justify-content:flex-start}
+.share-options{width:100%;justify-content:center;gap:10px;margin-top:12px}
+.share-option{width:41px;height:41px}
+.brand-x{font-size:20px;font-weight:800}
+.brand-line{font-size:10.5px;font-weight:900;letter-spacing:-.06em}
+.brand-threads{font-size:24px}
+.brand-instagram{width:24px;height:24px;border-radius:7px}
+.brand-instagram::before{width:8px;height:8px}
+
+.event-share{justify-content:center;gap:8px}
+.event-share .social-circle{width:34px;height:34px;font-size:11px}
+.event-share .social-circle.x{font-size:14px}
+.event-share .social-circle.line{font-size:7.5px;font-weight:900;letter-spacing:-.05em}
+.event-share .social-circle.threads{font-size:20px}
+.event-share .social-circle.instagram::before{width:18px;height:18px;border-radius:6px}
+.event-share .social-circle.instagram::after{width:6px;height:6px}
+.event-share .social-circle.url svg{width:17px;height:17px}
+
+
+/* Ver.1.9.5 adjustments */
+/* Calendar emoji layout: always packed left in fixed 3-column rows */
+.member-icons{
+  position:absolute;
+  left:4px;
+  bottom:3px;
+  right:auto;
+  width:max-content;
+  max-width:calc(100% - 6px);
+  display:grid;
+  grid-template-columns:repeat(3, 1.05em);
+  grid-auto-rows:1.05em;
+  column-gap:2px;
+  row-gap:1px;
+  align-items:center;
+  justify-items:start;
+  justify-content:start;
+  overflow:hidden;
+  line-height:1;
+}
+.member-emoji{
+  width:1.05em;
+  height:1.05em;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  font-size:clamp(8.5px,2.45vw,11.5px);
+  line-height:1;
+}
+
+/* Event-detail sharing: use the same camera-style Instagram mark as the main share sheet */
+.event-share .social-circle.instagram{
+  position:relative;
+  background:radial-gradient(circle at 30% 110%,#ffd600 0 19%,#ff7a00 34%,#ff0169 58%,#d300c5 78%,#7638fa 100%);
+  font-size:0;
+}
+.event-share .social-circle.instagram::before,
+.event-share .social-circle.instagram::after{
+  content:none;
+}
+.event-share .social-circle.instagram .brand-instagram{
+  width:20px;
+  height:20px;
+  border:2px solid #fff;
+  border-radius:6px;
+}
+.event-share .social-circle.instagram .brand-instagram::before{
+  width:7px;
+  height:7px;
+  border:2px solid #fff;
+}
+.event-share .social-circle.instagram .brand-instagram::after{
+  right:2px;
+  top:2px;
+  width:3px;
+  height:3px;
+}
+
+
+/* Ver.1.9.6 adjustments */
+/* Keep the event-driven member order; only pack icons tightly into 3 columns. */
+.member-icons{
+  position:absolute;
+  left:4px;
+  right:auto;
+  bottom:3px;
+  width:max-content;
+  max-width:calc(100% - 6px);
+  display:grid;
+  grid-template-columns:repeat(3, .98em);
+  grid-auto-rows:.98em;
+  column-gap:0;
+  row-gap:0;
+  align-items:center;
+  justify-items:start;
+  justify-content:start;
+  overflow:visible;
+  line-height:.96;
+}
+.member-emoji{
+  display:block;
+  width:.98em;
+  height:.98em;
+  margin:0;
+  padding:0;
+  font-size:clamp(8.5px,2.45vw,11.5px);
+  line-height:.96;
+  white-space:nowrap;
+}
+
+/* Ver.1.9.7 adjustments — restore the clean Ver.1.5 member emoji layout */
+.member-icons{
+  position:static;
+  left:auto;
+  right:auto;
+  bottom:auto;
+  width:100%;
+  max-width:none;
+  margin-top:auto;
+  margin-bottom:0;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  grid-template-rows:repeat(3,min-content);
+  grid-auto-rows:min-content;
+  column-gap:0;
+  row-gap:1px;
+  align-items:center;
+  justify-content:stretch;
+  justify-items:center;
+  overflow:hidden;
+  line-height:1;
+}
+.member-emoji{
+  display:block;
+  width:auto;
+  height:auto;
+  margin:0;
+  padding:0;
+  font-size:clamp(8px,2.55vw,12px);
+  line-height:1;
+  white-space:nowrap;
+}
+
+/* Ver.1.9.8 share icon centering */
+.share-option.threads,
+.share-option.url,
+.event-share .social-circle.threads,
+.event-share .social-circle.url{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  line-height:1;
+}
+.share-option.threads .brand-threads,
+.event-share .social-circle.threads{
+  transform:none;
+  text-indent:0;
+}
+.share-option.url svg,
+.event-share .social-circle.url svg{
+  display:block;
+  margin:0;
+  flex:0 0 auto;
+}
+
+
+/* Ver.1.9.8 final — exact visual centering for Threads and URL icons */
+.share-option.threads,
+.share-option.url,
+.event-share .social-circle.threads,
+.event-share .social-circle.url{
+  position:relative;
+  display:grid;
+  place-items:center;
+  padding:0;
+  overflow:hidden;
+}
+.share-option.threads{
+  font-size:0;
+}
+.share-option.threads .brand-threads{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  width:100%;
+  height:100%;
+  margin:0;
+  padding:0 0 2px;
+  font-size:24px;
+  line-height:1;
+  text-align:center;
+  transform:none;
+}
+.share-option.url svg,
+.event-share .social-circle.url svg{
+  position:absolute;
+  left:50%;
+  top:50%;
+  display:block;
+  margin:0;
+  transform:translate(-50%,-50%);
+  transform-origin:center;
+}
+.event-share .social-circle.threads{
+  color:transparent;
+  font-size:0;
+  line-height:0;
+}
+.event-share .social-circle.threads::before{
+  content:"@";
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  padding:0 0 2px;
+  color:#fff;
+  font-size:20px;
+  font-weight:800;
+  line-height:1;
+  text-align:center;
+}
+
+
+/* Ver.2.1 countdown */
+.countdown-list:empty{display:none}
+.countdown-list:not(:empty){margin-top:9px}
+.countdown-item{
+  width:100%;
+  min-width:0;
+  text-align:left;
+}
+.countdown-item:active{transform:scale(.995)}
