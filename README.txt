@@ -1,4 +1,4 @@
-timelesz Schedule Ver.2.2
+timelesz Schedule Ver.2.3
 
 公開用ファイル
 - index.html
@@ -71,3 +71,8 @@ Ver.2.1 更新内容
 Ver.2.2 更新内容
 - Google Analytics（GA4）を導入
 - 測定ID G-1H0R13EB3C を設定
+
+
+Ver.2.3 更新内容
+- TV、RADIO、CONCERT、MOVIE、EVENTのカテゴリーアイコンを指定SVGへ変更
+- その他のデザイン・機能は変更なし
