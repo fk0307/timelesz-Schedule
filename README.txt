@@ -1,4 +1,4 @@
-timelesz Schedule Ver.2.3
+timelesz Schedule Ver.2.2
 
 公開用ファイル
 - index.html
@@ -73,6 +73,6 @@ Ver.2.2 更新内容
 - 測定ID G-1H0R13EB3C を設定
 
 
-Ver.2.3 更新内容
-- TV、RADIO、CONCERT、MOVIE、EVENTのカテゴリーアイコンを指定SVGへ変更
-- その他のデザイン・機能は変更なし
+Ver.2.4 更新内容
+- トップページ右下の最終更新日の下にスケジュール更新日を追加
+- サイト情報シートの scheduleUpdated を自動反映

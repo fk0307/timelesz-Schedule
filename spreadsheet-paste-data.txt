@@ -88,9 +88,10 @@ version	Ver.2.2
 lastUpdated	2026.7.16
 
 
-【Ver.2.3 更新履歴シートへ追加】
-Ver.2.3	2026.7.16	TV・RADIO・CONCERT・MOVIE・EVENTのカテゴリーアイコンを変更
+【Ver.2.4 更新履歴シートへ追加】
+Ver.2.4	2026.7.19	トップページ右下にスケジュール更新日を表示
 
 【サイト情報シートで変更】
-version	Ver.2.3
-lastUpdated	2026.7.16
+version	Ver.2.4
+lastUpdated	2026.7.19
+scheduleUpdated	2026.7.18

@@ -266,3 +266,6 @@ dialog{color:var(--ink)}dialog::backdrop{background:rgba(50,37,27,.42);backdrop-
   text-align:left;
 }
 .countdown-item:active{transform:scale(.995)}
+
+/* Ver.2.4 footer schedule update */
+.footer-schedule-updated{margin-top:2px}
